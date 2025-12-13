@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: Simple Imagix
+ * Plugin URI: https://github.com/justyupi/simple-imagix
  * Description: Convert JPG/PNG to WebP + compression + resize + convert old images.
  * Version: 1.0
  * Author: Kref Studio
@@ -46,3 +47,4 @@ function simgx_convert_on_upload($metadata, $attachment_id) {
 
     return $metadata;
 }
+
