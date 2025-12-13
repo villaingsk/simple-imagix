@@ -14,6 +14,9 @@ Convert JPG/PNG to WebP automatically + bulk conversion tool + quality control +
 
 Simple Imagix is a lightweight yet powerful plugin designed to modernize your WordPress media library. It automatically handles image optimization by converting uploads to the modern WebP format, ensuring faster load times and better performance for your website.
 
+**Requirements:**
+*   **PHP GD Library**: Must be enabled on your server (standard on most hosting).
+
 **Key Features:**
 
 *   **Automatic WebP Conversion**: Seamlessly converts every new JPG and PNG image to WebP format immediately upon upload.
@@ -36,6 +39,9 @@ By default, no. However, there is a checkbox in the settings "Delete Original Im
 
 = Is it compatible with PHP 8? =
 Yes, Simple Imagix is fully compatible with PHP 7.4 and PHP 8.0+.
+
+= Does it work on Nginx/LiteSpeed? =
+Yes! Because Simple Imagix works at the application level (PHP) and replaces the file directly in the database, it **works on all web servers** (Apache, Nginx, LiteSpeed, IIS, etc.) without needing any special configuration files or `.htaccess` editing.
 
 == Screenshots ==
 
