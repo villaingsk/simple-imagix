@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
  * Convert to WebP
  */
 function simgx_convert_to_webp($file, $quality = 85, $delete_original = false) {
+    if (!function_exists('imagewebp')) return false; // GD Library not active
     if (empty($file) || !file_exists($file)) return false;
 
     $info = pathinfo($file);
@@ -42,6 +43,7 @@ function simgx_convert_to_webp($file, $quality = 85, $delete_original = false) {
 function simgx_convert_old_images() {
     global $wpdb;
 
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery
     $attachments = $wpdb->get_col("
         SELECT ID FROM {$wpdb->posts}
         WHERE post_type = 'attachment'

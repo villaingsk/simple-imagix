@@ -43,7 +43,7 @@ function simgx_settings_page() {
                 <tr>
                     <th scope="row">Compression Quality</th>
                     <td>
-                        <input type="number" name="quality" value="<?php echo $quality; ?>" min="1" max="100">
+                        <input type="number" name="quality" value="<?php echo esc_attr($quality); ?>" min="1" max="100">
                     </td>
                 </tr>
 
