@@ -1,13 +1,3 @@
-=== Simple Imagix ===
-Contributors: Kref Studio
-Tags: webp, converter, optimization, image, compression
-Requires at least: 6.9
-Tested up to: 6.9
-Requires PHP: 7.4
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0
-
 Convert JPG/PNG to WebP automatically + bulk conversion tool + quality control + space saving options.
 
 == Description ==
