@@ -1,55 +1,62 @@
 === Simple Imagix ===
 Contributors: Kref Studio
-Tags: webp, converter, optimization, image, compression
-Requires at least: 6.9
+Tags: webp, converter, optimization, image, compression, media cleaner, clean unused images
+Requires at least: 5.6
 Tested up to: 6.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1
+Stable tag: 1.2.1
 
-Convert JPG/PNG to WebP automatically + bulk conversion tool + quality control + space saving options.
+Convert JPG/PNG to WebP (full + subsizes/thumbnails), AJAX bulk conversion, and unused media cleaner.
 
 == Description ==
 
-Simple Imagix is a lightweight yet powerful plugin designed to modernize your WordPress media library. It automatically handles image optimization by converting uploads to the modern WebP format, ensuring faster load times and better performance for your website.
+Simple Imagix is a lightweight yet comprehensive plugin designed to modernize and clean your WordPress media library. It automatically handles image optimization by converting uploads and thumbnails to the modern WebP format, provides an AJAX bulk converter that prevents timeout issues on all server stacks, and includes a smart scanner to detect and remove unused images.
 
 **Requirements:**
-*   **PHP GD Library**: Must be enabled on your server (standard on most hosting).
+*   **PHP GD Library**: Must be enabled with WebP support on your server (standard on most hosting and panels like aaPanel and HestiaCP).
 
 **Key Features:**
 
-*   **Automatic WebP Conversion**: Seamlessly converts every new JPG and PNG image to WebP format immediately upon upload.
-*   **Bulk Conversion Tool**: Includes a built-in tool to scan and convert all existing images in your media library to WebP with a single click.
-*   **Compression Quality Control**: Fully adjustable quality setting (1-100) allowing you to find the perfect balance between image sharpness and file size reduction.
-*   **Space Saving Mode**: Optional setting to automatically delete the original JPG/PNG files after successful conversion, keeping your server clean.
-*   **High Compatibility**: Optimized to run smoothly on PHP 7.4, 8.0, and newer versions, as well as the latest WordPress releases.
-*   **Simple Management**: Easy-to-use settings page located under **Settings > Simple Imagix**.
+*   **Automatic WebP Conversion**: Converts both the original image and all generated thumbnails/subsizes (`thumbnail`, `medium`, `large`, etc.) to WebP upon upload (can be toggled on/off in settings).
+*   **Proper MIME Type Syncing**: Updates `post_mime_type` in the database to `image/webp` for seamless WordPress media handling.
+*   **AJAX Batch Bulk Converter**: Converts existing images in batches (5 per batch) with a visual progress bar and real-time status log, preventing 504 timeouts on Apache, Nginx, LiteSpeed, aaPanel, and HestiaCP.
+*   **Unused Media Cleaner**: Intelligently scans your media library to detect images not used in Featured Images, post/page/CPT content, WooCommerce product galleries, or page builders (Elementor), with a safe "Move to Trash" option or permanent deletion.
+*   **Compression Quality Control**: Fully adjustable quality setting (10-100) allowing you to find the perfect balance between image sharpness and file size.
+*   **Space Saving Mode**: Optional setting to automatically delete original JPG/PNG files after conversion.
+*   **Clean & Modular Architecture**: Easy-to-use tabbed admin dashboard under **Settings > Simple Imagix**.
 
 == Installation ==
 
 1. Upload the `simple-imagix` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Navigate to **Settings > Simple Imagix** to configure your compression quality and preferences.
+3. Navigate to **Settings > Simple Imagix** to configure quality, run bulk conversions, or scan for unused images.
 
 == Frequently Asked Questions ==
 
 = Does this delete my original images? =
-By default, no. However, there is a checkbox in the settings "Delete Original Image" (`Hapus JPG/PNG setelah convert ke WebP`) if you wish to remove the originals to save space.
+By default, no. However, you can enable "Delete Original Image" in Settings if you wish to remove original JPG/PNG files to save hosting disk space.
 
-= Is it compatible with PHP 8? =
-Yes, Simple Imagix is fully compatible with PHP 7.4 and PHP 8.0+.
+= Does it convert WordPress thumbnails/subsizes? =
+Yes! Starting from v1.2.0, all generated image sizes (thumbnail, medium, large, etc.) are converted to WebP alongside the main image.
 
-= Does it work on Nginx/LiteSpeed? =
-Yes! Because Simple Imagix works at the application level (PHP) and replaces the file directly in the database, it **works on all web servers** (Apache, Nginx, LiteSpeed, IIS, etc.) without needing any special configuration files or `.htaccess` editing.
-
-== Screenshots ==
-
-1. Settings page with quality control and bulk conversion options.
+= Does it work on Nginx / aaPanel / HestiaCP? =
+Yes! Simple Imagix works entirely at the application level (PHP) and uses an AJAX batching engine, requiring no special `.htaccess` or Nginx rewrite rules.
 
 == Changelog ==
 
-= 1.1 - 2026-02-18 =
-* Fixed: Linter errors in admin page (escaped output).
-* Improved: Performance for bulk conversion (suppressed direct DB query warnings).
-* Initial release on WordPress.org (v1.0 was internal).
+= 1.2.1 - 2026-11-17 =
+* Added toggle option to enable/disable automatic WebP conversion on upload.
+* Fixed left alignment and layout symmetry in admin tabs and form table.
+* Implemented seamless instant tab switching via JavaScript without full page reloads.
+
+= 1.2.0 - 2026-11-17 =
+* Added automatic conversion for all thumbnail/subsize variations to WebP.
+* Updated `post_mime_type` in database to `image/webp`.
+* Replaced synchronous bulk conversion with a robust AJAX batching queue and progress bar.
+* Added Unused Media Cleaner with smart usage detection and safe Move to Trash / Permanent Delete actions.
+* Redesigned tabbed admin interface under Settings > Simple Imagix.
+
+= 1.1 - 2026-11-16 =
+* Initial release with automatic WebP conversion on upload and basic bulk conversion.

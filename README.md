@@ -1,38 +1,86 @@
-Convert JPG/PNG to WebP automatically + bulk conversion tool + quality control + space saving options.
+# Simple Imagix (v1.2.1)
 
-== Description ==
+> Convert JPG/PNG to WebP (Full & Subsizes), AJAX Bulk Conversion, and Unused Media Cleaner for WordPress.
 
-Simple Imagix is a lightweight yet powerful plugin designed to modernize your WordPress media library. It automatically handles image optimization by converting uploads to the modern WebP format, ensuring faster load times and better performance for your website.
+## ✨ Fitur Utama
 
-**Requirements:**
-*   **PHP GD Library**: Must be enabled on your server (standard on most hosting).
+1. **Automatic WebP Conversion (Full & Subsizes/Thumbnails)**
+   * Mengonversi gambar utama dan seluruh variasi ukuran (`thumbnail`, `medium`, `large`, dll.) ke WebP saat diupload.
+   * Opsi untuk mengaktifkan atau menonaktifkan konversi otomatis langsung dari menu pengaturan.
+   * Mempertahankan transparansi pada gambar PNG melalui penanganan alpha channel GD.
+   * Memperbarui kolom `post_mime_type` di tabel `wp_posts` menjadi `image/webp`.
 
-**Key Features:**
+2. **AJAX Batch Bulk Converter (Anti-Timeout)**
+   * Memproses konversi gambar lama secara bertahap via antrean AJAX (5 gambar per batch).
+   * Dilengkapi *progress bar* visual (0%–100%) dan log status langsung di halaman admin.
+   * Sangat stabil dan bebas dari kendala timeout (504 Gateway Timeout) di Apache, Nginx, LiteSpeed, aaPanel, dan HestiaCP.
 
-*   **Automatic WebP Conversion**: Seamlessly converts every new JPG and PNG image to WebP format immediately upon upload.
-*   **Bulk Conversion Tool**: Includes a built-in tool to scan and convert all existing images in your media library to WebP with a single click.
-*   **Compression Quality Control**: Fully adjustable quality setting (1-100) allowing you to find the perfect balance between image sharpness and file size reduction.
-*   **Space Saving Mode**: Optional setting to automatically delete the original JPG/PNG files after successful conversion, keeping your server clean.
-*   **High Compatibility**: Optimized to run smoothly on PHP 7.4, 8.0, and newer versions, as well as the latest WordPress releases.
-*   **Simple Management**: Easy-to-use settings page located under **Settings > Simple Imagix**.
+3. **Unused Media Cleaner (Pembersih Gambar Tidak Terpakai)**
+   * Memindai seluruh berkas di Media Library yang tidak lagi digunakan sebagai:
+     * Featured Image (`_thumbnail_id`).
+     * Konten Post, Page, dan Custom Post Type (CPT) baik Classic Editor maupun Gutenberg Block.
+     * Ikon dan Logo Situs (`site_icon`, `custom_logo`).
+     * Galeri Produk WooCommerce (`_product_image_gallery`).
+     * Elementor Page Builder metadata (`_elementor_data`).
+   * Memberikan daftar pratinjau (*preview*) berkas tidak terpakai.
+   * Aksi penghapusan aman: **Move to Trash** (bisa dipulihkan kembali) dan **Delete Permanently** dengan dialog konfirmasi.
 
-== Installation ==
+4. **Quality & Storage Control**
+   * Pengaturan kualitas kompresi WebP (10 - 100).
+   * Opsi *Delete Original File* (JPG/PNG) setelah berhasil dikonversi ke WebP untuk menghemat penyimpanan server.
 
-1. Upload the `simple-imagix` folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Navigate to **Settings > Simple Imagix** to configure your compression quality and preferences.
+5. **Antarmuka Admin Responsif & Simetris**
+   * Navigasi tab instan via JavaScript tanpa reload halaman.
+   * Tata letak rapi, simetris, dan menyatu dengan standar desain WordPress.
 
-== Frequently Asked Questions ==
+---
 
-= Does this delete my original images? =
-By default, no. However, there is a checkbox in the settings "Delete Original Image" (`Hapus JPG/PNG setelah convert ke WebP`) if you wish to remove the originals to save space.
+## 📁 Struktur Berkas
 
-= Is it compatible with PHP 8? =
-Yes, Simple Imagix is fully compatible with PHP 7.4 and PHP 8.0+.
+```text
+simple-imagix/
+├── assets/
+│   ├── js/
+│   │   ├── admin-tabs.js        # Navigasi tab instan tanpa reload halaman
+│   │   ├── bulk-convert.js      # AJAX batching & progress bar bulk convert
+│   │   └── media-cleaner.js     # AJAX scanner & safe trash/delete handler
+│   └── css/
+│       └── admin.css            # Styling tab, layout simetris, & cleaner table
+├── includes/
+│   ├── class-converter.php      # Engine konversi WebP (Full & Subsizes)
+│   ├── class-cleaner.php        # Engine deteksi berkas media tidak terpakai
+│   └── class-ajax.php           # Endpoint registrasi AJAX WordPress
+├── admin-page.php               # Antarmuka Admin Tabbed Settings
+├── converter.php                # Legacy wrapper untuk kompatibilitas mundur
+├── simple-imagix.php            # Entry point plugin
+├── plan-simple-imagix-features.md
+└── readme.txt
+```
 
-= Does it work on Nginx/LiteSpeed? =
-Yes! Because Simple Imagix works at the application level (PHP) and replaces the file directly in the database, it **works on all web servers** (Apache, Nginx, LiteSpeed, IIS, etc.) without needing any special configuration files or `.htaccess` editing.
+---
 
-== Screenshots ==
+## 🚀 Persyaratan Sistem
 
-1. Settings page with quality control and bulk conversion options.
+* **PHP:** Minimal 7.4 (Kompatibel penuh dengan PHP 8.0, 8.1, 8.2, 8.3).
+* **PHP GD Extension:** Terinstal dengan WebP support (`imagewebp()`).
+* **WordPress:** Minimal 5.6 (Diuji hingga 6.9).
+* **Web Server & Panel:** Mendukung Apache, Nginx, LiteSpeed, OpenLiteSpeed, aaPanel, dan HestiaCP.
+
+---
+
+## 📝 Changelog
+
+### 1.2.1 - 17 November 2026
+* Menambahkan opsi toggle pengaturan untuk mengaktifkan/menonaktifkan konversi WebP otomatis saat upload.
+* Memperbaiki tata letak agar rata dan simetris di sisi kiri pada tab navigasi dan tabel pengaturan.
+* Menerapkan sistem tab instan via JavaScript tanpa memuat ulang (*reload*) halaman.
+
+### 1.2.0 - 17 November 2026
+* Menambahkan dukungan konversi otomatis seluruh thumbnail/subsizes WordPress ke format WebP.
+* Sinkronisasi tipe berkas database `post_mime_type` menjadi `image/webp`.
+* Memperbarui fitur bulk conversion dengan antrean batch AJAX (5 gambar/batch) dan visual progress bar.
+* Menambahkan fitur Unused Media Cleaner dengan opsi aman *Move to Trash* dan *Permanent Delete*.
+* Merombak antarmuka admin menjadi sistem tab terstruktur di bawah *Settings > Simple Imagix*.
+
+### 1.1 - 16 November 2026
+* Rilis awal dengan konversi WebP otomatis saat upload dan bulk convert standar.
